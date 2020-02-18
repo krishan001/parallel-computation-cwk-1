@@ -107,17 +107,29 @@ void swap(int *num1, int *num2)
 }
 void sortSet()
 {
-    // Your parallel sort should go here.
-    int i,j; 
-    // #pragma omp parallel for private(j) 
-    for (i = 0; i < setSize-1; i++){       
-       // Last i elements are already in place
-        for (j = 0; j < setSize-1; j++){  
-            if (set[j] > set[j+1]){
-                swap(&set[j],&set[j+1]);
-            }
+    // // Your parallel sort should go here. 
+
+    int i;
+    int sorted;
+    do{
+    sorted = 1;
+    //odd phase
+    #pragma omp parallel for 
+    for (i = 2; i<setSize; i+=2){
+        if (set[i-1]>set[i]){
+            swap(&set[i-1], &set[i]);
+            sorted = 0;
         }
     }
+    //even phase
+    #pragma omp parallel for 
+    for (i = 0; i<setSize-1; i+=2){
+        if (set[i]>set[i+1]){
+            swap(&set[i], &set[i+1]);
+            sorted = 0;
+        }
+    }
+    }while(sorted==0);
 }
 
 //
