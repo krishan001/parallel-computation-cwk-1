@@ -170,15 +170,12 @@ int main( int argc, char **argv )
     printf( "Attempted to add %i random values. Current state of set:\n", numToAdd );
     printSet();
 
-    clock_t start = clock();
     // Remove values from the set; random values from the same range as they were added.
     for( i=0; i<numToRemove; i++ )
         removeFromSet( rand()%maxSetSize );
 
     printf( "\nRemoved up to %i random values if present. Current state of set:\n", numToRemove );
     printSet();
-    int calcTime_ms = (clock() - start) * 1000 / CLOCKS_PER_SEC;
-     printf( "Total time take for the calculations: %d secs %d ms.\n", calcTime_ms/1000, calcTime_ms%1000 );
 
     // Finally, sort the set in increasing order.
     sortSet();
