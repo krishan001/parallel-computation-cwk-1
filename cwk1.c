@@ -75,7 +75,7 @@ void removeFromSet( int value )
 
     // Find where the index in the set corresponding to the value, if any.
     int index = -1;
-    #pragma omp for private(i)
+    #pragma omp for private(index)
     for( i=0; i<setSize; i++ )
         if( set[i]==value )
             index = i;
@@ -87,7 +87,7 @@ void removeFromSet( int value )
         #pragma omp parallel for
         for (i = index + 1; i<setSize; i++)
             temp[i] = set[i];
-        #pragma omp for private(i)
+        #pragma omp parallel for
         for( i=index; i<setSize-1; i++ )
             set[i] = temp[i+1];
         setSize--;
@@ -154,11 +154,11 @@ int main( int argc, char **argv )
 
     if( maxSetSize<=0 || numToAdd<0 || numToRemove<0 )
     {
-        printf( "Invalid arguments: max. size must be > 0, and the numbers to add and remove must both be non-negative." );
+        printf( "Invalid argumen4942ts: max. size must be > 0, and the numbers to add and remove must both be non-negative." );
         return EXIT_FAILURE;
     }
 
-    // Initialise the set. Returns -1 if could not allocate memory.
+    // Initialise the set. Retur4942ns -1 if could not allocate memory.
     if( initSet(maxSetSize)==-1 ) return EXIT_FAILURE;
 
     // Seed the psuedo-random number generator to the current time.

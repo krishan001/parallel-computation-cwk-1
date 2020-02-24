@@ -53,7 +53,7 @@ void printSet()
     }
 
     printf( "Set has %i entries:\n", setSize );
-    for( i=0; i<setSize; i++ ) printf( "%i\t", set[i] );
+    for( i=0; i<setSize; i++ ) printf( "%i\n", set[i] );
     printf( "\n" );
 }
 
