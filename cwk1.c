@@ -44,29 +44,26 @@
 void addToSet( int value )
 {
     int i;
-    int duplicate = 0;
-    int tooBig = 0;
+    int shouldReturn = 0;
+
     // Cannot exceed the maximum size.
     #pragma omp critical
     {
-    if( setSize==maxSetSize ) tooBig = 1;
-    }
+        if( setSize==maxSetSize ) shouldReturn = 1;
 
-    if (tooBig) return;
-    // Only reach this point if the value was not found and there is room to add to the set.
-        #pragma omp critical
-        {
-    // Since sets should not have duplicates, first check this value is not already in the set.
-        for( i=0; i<setSize; i++ ){
-            if( set[i]==value ){
-                duplicate = 1; 
-            }
+        // Since sets should not have duplicates, first check this value is not already in the set.
+        if (shouldReturn ==0){
+            for( i=0; i<setSize; i++ )
+                if( set[i]==value )
+                    shouldReturn = 1;
         }
+        // Only reach this point if the value was not found and there is room to add to the set.
+        if (shouldReturn == 0){
+            set[setSize] = value;
+            setSize++;
         }
-        if (duplicate == 1) return;
-        set[setSize] = value;
-        #pragma omp atomic
-        setSize++;
+    }
+    if (shouldReturn) return;
     
 }
 
