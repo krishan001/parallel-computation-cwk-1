@@ -75,7 +75,7 @@ void removeFromSet( int value )
 
     // Find where the index in the set corresponding to the value, if any.
     int index = -1;
-    #pragma omp for private(index)
+    #pragma omp parallel for 
     for( i=0; i<setSize; i++ )
         if( set[i]==value )
             index = i;
