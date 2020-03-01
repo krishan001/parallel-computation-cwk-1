@@ -52,7 +52,7 @@ void addToSet( int value )
         if( setSize==maxSetSize ) shouldReturn = 1;
 
         // Since sets should not have duplicates, first check this value is not already in the set.
-        if (shouldReturn ==0){
+        if (shouldReturn == 0){
             for( i=0; i<setSize; i++ )
                 if( set[i]==value )
                     shouldReturn = 1;
